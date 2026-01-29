@@ -1,104 +1,400 @@
-/* CSS Variables for Theme Management */
+/* Theme variables */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --bg: #0b1220;
+  --panel: rgba(255, 255, 255, 0.06);
+  --panel-2: rgba(255, 255, 255, 0.08);
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.65);
+  --border: rgba(255, 255, 255, 0.12);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --accent: #4cc9f0;
+  --good: #2bd576;
+  --warn: #ffcc00;
+  --bad: #ff4d4f;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --radius: 14px;
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+:root[data-theme="light"] {
+  --bg: #f6f7fb;
+  --panel: rgba(0, 0, 0, 0.04);
+  --panel-2: rgba(0, 0, 0, 0.06);
+  --text: rgba(0, 0, 0, 0.88);
+  --muted: rgba(0, 0, 0, 0.60);
+  --border: rgba(0, 0, 0, 0.10);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.10);
+  --accent: #1e6cff;
 }
 
-.App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+html, body {
+  height: 100%;
+  background: var(--bg);
+}
+
+.kavia-root {
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  color: var(--text);
+  background: radial-gradient(900px 500px at 20% 0%, rgba(76, 201, 240, 0.15), transparent 55%),
+              radial-gradient(800px 500px at 90% 10%, rgba(30, 108, 255, 0.14), transparent 55%),
+              var(--bg);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Top bar */
+.kavia-topbar {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0,0,0,0.12);
+  backdrop-filter: blur(10px);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+:root[data-theme="light"] .kavia-topbar {
+  background: rgba(255,255,255,0.6);
 }
 
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
+.kavia-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.kavia-brand-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(76,201,240,0.18);
+}
+
+.kavia-brand-title {
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.kavia-brand-sub {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.kavia-topbar-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Layout shell */
+.kavia-shell {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 14px;
+  padding: 14px;
+}
+
+.kavia-sidebar {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
+  gap: 14px;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+.kavia-main {
+  min-width: 0;
 }
 
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
+.kavia-panel,
+.kavia-card {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.kavia-panel {
+  padding: 14px;
+}
+
+.kavia-panel-title {
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.kavia-suite-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.kavia-suite-item {
+  text-align: left;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  border-radius: 12px;
+  padding: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: var(--text);
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+.kavia-suite-item:hover {
+  transform: translateY(-1px);
+}
+
+.kavia-suite-item.active {
+  outline: 2px solid rgba(76, 201, 240, 0.35);
+  border-color: rgba(76, 201, 240, 0.45);
+}
+
+.kavia-suite-name {
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.kavia-suite-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.05);
+  color: var(--muted);
+}
+
+.pill-muted {
   opacity: 0.9;
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+/* Key/Value */
+.kavia-kv {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 8px 10px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.kavia-k { opacity: 0.9; }
+.kavia-v { color: var(--text); }
+
+/* Cards grid */
+.kavia-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 14px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.kavia-span2 {
+  grid-column: 1 / -1;
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
+.kavia-card {
+  padding: 14px;
+  min-width: 0;
+}
+
+.kavia-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.kavia-card-title {
+  font-weight: 900;
+}
+
+.kavia-card-sub {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+/* Table */
+.kavia-table {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.kavia-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 110px;
+  gap: 12px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--border);
+  align-items: center;
+}
+
+.kavia-row:first-child {
+  border-top: none;
+}
+
+.kavia-row-head {
+  background: rgba(255,255,255,0.05);
+  font-weight: 800;
+  color: var(--muted);
+}
+
+.kavia-empty {
+  padding: 14px;
+  color: var(--muted);
+}
+
+.mono {
+  font-family: var(--mono);
+  font-size: 12px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* Inputs & buttons */
+.kavia-input {
+  width: 260px;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(0,0,0,0.12);
+  color: var(--text);
+  outline: none;
+}
+
+:root[data-theme="light"] .kavia-input {
+  background: rgba(255,255,255,0.8);
+}
+
+.btn {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.btn:hover { transform: translateY(-1px); }
+
+.btn-primary {
+  border-color: rgba(76, 201, 240, 0.45);
+  background: rgba(76, 201, 240, 0.18);
+}
+
+.btn-disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.06);
+}
+
+.badge-p0 { color: var(--good); }
+.badge-p1 { color: var(--warn); }
+.badge-p2 { color: rgba(255,255,255,0.75); }
+
+.status {
+  display: inline-flex;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 12px;
+  border: 1px solid var(--border);
+}
+
+.status.pass { color: var(--good); }
+.status.fail { color: var(--bad); }
+.status.running { color: var(--accent); }
+
+/* Run box */
+.kavia-runbox {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.kavia-run-status {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.kavia-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.08);
+}
+
+.kavia-dot[data-state="running"] {
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(76,201,240,0.18);
+}
+
+.kavia-run-title {
+  font-weight: 900;
+}
+
+.kavia-run-sub {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+.kavia-stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.kavia-stat {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  background: rgba(255,255,255,0.04);
+}
+
+.kavia-stat-label {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.kavia-stat-value {
+  margin-top: 6px;
+  font-weight: 900;
+}
+
+.kavia-tip {
+  color: var(--muted);
+  font-size: 13px;
+  padding: 10px 12px;
+  border-left: 3px solid rgba(76,201,240,0.45);
+  background: rgba(255,255,255,0.04);
+  border-radius: 10px;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .kavia-shell {
+    grid-template-columns: 1fr;
+  }
+  .kavia-grid {
+    grid-template-columns: 1fr;
+  }
+  .kavia-input {
+    width: 180px;
   }
 }
