@@ -1,0 +1,4 @@
+{
+    "command": "npm run test",
+    "working_directory": "/home/kavia/workspace/code-generation/wifi-test-management-system-6824-6833/wifi_test_frontend"
+}
